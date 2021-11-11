@@ -29,8 +29,8 @@ public class WriteThread extends Thread {
     private Client client;
     ObjectOutputStream forobj;
     ObjectInputStream getobj ;
+    JFrame frame;
     public WriteThread(Socket socket, Client client) {
-        System.out.println("###asdacas#######");
         this.socket = socket;
         this.client = client;
  
@@ -89,7 +89,7 @@ public class WriteThread extends Thread {
         
         System.out.println("Kachara code execution started !! " );
 
-    	JFrame frame = new JFrame("My First Swing Example");
+    	frame = new JFrame("My First Swing Example");
         // Setting the width and height of frame
         frame.setSize(350, 200);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -108,7 +108,7 @@ public class WriteThread extends Thread {
         placeComponents(panel);
         frame.setVisible(true);
  
-        Console console = System.console();
+//        Console console = System.console();
  
         // String userName = console.readLine("\nEnter your PRN : ");
         // client.setUserName(userName);
@@ -185,6 +185,9 @@ public class WriteThread extends Thread {
 
         try {
             forobj.writeObject(initial);
+            frame.setVisible(false);
+            client.lauch_frame_for_afterLogin();
+            
         } 
         catch (Exception e) {
             System.out.println("s0mething went wrong :" + e.getMessage());
@@ -215,7 +218,25 @@ public class WriteThread extends Thread {
         }
 
     }
+    
+    
+    private void lauch_frame_for_login() {
+    		System.out.println("Kachara code execution started !! " );
 
+      	   	JFrame frame = new JFrame("My First Swing Example");
+      	   	// Setting the width and height of frame
+      	   	frame.setSize(350, 200);
+      	   	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            JPanel panel = new JPanel();    
+            // adding panel to frame
+            frame.add(panel);
+            /* calling user defined method for adding components
+             * to the panel.
+             */
+            placeComponents(panel);
+            frame.setVisible(true);
+    	
+    }
     
     
     private void placeComponents(JPanel panel) {

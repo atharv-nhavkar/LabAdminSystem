@@ -4,6 +4,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.Color;
+import java.awt.Component;
+
 import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 import javax.swing.table.DefaultTableModel;
@@ -118,9 +120,15 @@ public class ServerWindow {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				
+//				riyaadduser("2019BTEIT00050" , "Active","date","time");
+//				riyaadduser("2019BTEIT00032" , "Active","date","time");
+//				riyaadduser("2019BTEIT00070" , "Active","date","time");
+//				
+
+//				getAllComponetsNameInJPanels("2019BTEIT00032");
 				
 //				showTable();
-				riyaadduser("2019BTEIT00050" , "password");
+//				riyaadduser("2019BTEIT00050" , "password");
 				
 				showtablesoniya();
 				System.out.println("hello worls ") ;
@@ -314,7 +322,7 @@ public class ServerWindow {
 		
 	}
 	
-	void riyaadduser(String prn , String status) {
+	void riyaadduser(String prn , String status,String date, String time ) {
 	    
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -349,11 +357,11 @@ public class ServerWindow {
 
 	        jLabel6.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
 	        jLabel6.setForeground(new java.awt.Color(102, 0, 102));
-	        jLabel6.setText("Date:");
+	        jLabel6.setText("Date:" + date);
 
 	        jLabel7.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
 	        jLabel7.setForeground(new java.awt.Color(102, 0, 102));
-	        jLabel7.setText("Time:");
+	        jLabel7.setText("Time:" + time);
 
 	        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
 	        jPanel2.setLayout(jPanel2Layout);
@@ -399,6 +407,8 @@ public class ServerWindow {
 			panel.add(jPanel2);
 
 	}
+	
+	
 	void showtablesoniya() {
 		 java.awt.EventQueue.invokeLater(new Runnable() {
 	            public void run() {
@@ -408,4 +418,40 @@ public class ServerWindow {
 
        
 	}
+
+	public void remove_panel_From_Prn (String prn) {
+	    String componentName;
+		Component[] components = panel.getComponents();
+		for (Component compo : components) {
+			System.out.println("RED devils  ") ;	
+            componentName = compo.getClass().getName();
+            
+            if(compo instanceof JPanel) {
+                JPanel myPanel = (JPanel) compo;
+                Component[] innercomponents = myPanel.getComponents();
+        		for (Component innercompo : innercomponents) {
+        			System.out.println("Tuchal") ;	
+        			if(innercompo instanceof JLabel)
+        			{
+        				JLabel name = (JLabel) innercompo;
+        				String userprn = name.getText();
+                        System.out.println(userprn);
+                        if(userprn == prn) {
+                        	panel.remove(myPanel);
+                        	panel.revalidate();
+                        	panel.repaint();
+
+                        }
+        				
+        			}
+                    componentName = innercompo.getClass().getName();
+                }
+                
+            }      
+            
+        }
+
+	}
+
+
 }

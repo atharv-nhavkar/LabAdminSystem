@@ -34,7 +34,7 @@ public class Server {
 			window = new ServerWindow();
 			window.frame.setVisible(true);
 		} catch (Exception e) {
-            System.out.println("FFFFF" + e.getMessage());
+            System.out.println("Hello " + e.getMessage());
 
 			e.printStackTrace();
 		}
@@ -145,8 +145,7 @@ public class Server {
      */
     void addUserName(String userName,String date,String time) {
         userNames.add(userName);
-        window.riyaadduser(userName, "active");
-        
+        window.riyaadduser(userName, "active",date,time);
 //        Panel panel=new Panel(); 
 //        panel.setLayout(new BorderLayout(0, 0)); 
 //        panel.setBounds(40,80,200,200);    
@@ -173,6 +172,7 @@ public class Server {
         boolean removed = userNames.remove(userName);
         if (removed) {
             userThreads.remove(aUser);
+            window.remove_panel_From_Prn(userName);
             System.out.println("The user " + userName + " quitted");
         }
     }

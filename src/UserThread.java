@@ -15,6 +15,8 @@ public class UserThread extends Thread {
     private Socket socket;
     private Server server;
     private PrintWriter writer;
+    private ObjectOutputStream forobj;
+
  
     public UserThread(Socket socket, Server server) {
         this.socket = socket;
@@ -28,6 +30,8 @@ public class UserThread extends Thread {
  
             OutputStream output = socket.getOutputStream();
             ObjectInputStream getobj = new ObjectInputStream(socket.getInputStream());
+            forobj = new ObjectOutputStream(socket.getOutputStream());
+
 
             writer = new PrintWriter(output, true);
 
@@ -64,6 +68,7 @@ public class UserThread extends Thread {
 //                    System.out.println(rs);
                     // ek function call honar je Moodle DB madhun password ani PRN check karel If they are valid tr send client a callback ki Values valid aahet ! 
                     // assuming that the credentials are correct : 
+                    send_Message(rcvinfo.prn , "login","SUCCESS" );
                     sql="INSERT INTO allentries VALUES(' " +rcvinfo.prn+" ' , '" +rcvinfo.date+"' , '" + rcvinfo.time +"' , '" + "login" +"' , '" + "SUCCESS" + "');";
                     // String sql="INSERT INTO allentries VALUES('2019bteit00032' , '07-10-2021' , '14.27' , 'password' , 'atharv');";
                     st=conn.createStatement();
@@ -208,4 +213,29 @@ public class UserThread extends Thread {
     void sendMessage(String message) {
         writer.println(message);
     }
+    
+    private void send_Message(String userName , String key , String value){
+
+    	
+        Date date = new Date();  
+        SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");  
+        String strDate = formatter.format(date);  
+        System.out.println("Date Format with MM/dd/yyyy : "+strDate);
+        
+        formatter = new SimpleDateFormat("hh:mm:ss");
+        String strtime = formatter.format(date);  
+        System.out.println("TIme is  "+strtime);
+
+        BasicInfo cilentmsg = new BasicInfo(userName, strDate, strtime,key,value);
+        try {
+            forobj.writeObject(cilentmsg);
+        } 
+        catch (Exception e) {
+            System.out.println("s0mething went wrong :" + e.getMessage());
+        }
+
+    }
+    
+    
+    
 }

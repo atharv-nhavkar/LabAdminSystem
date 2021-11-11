@@ -1,6 +1,11 @@
 import java.net.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
 import java.io.*;
 
 // import javafx.application.Application;
@@ -28,6 +33,7 @@ public class Client {
     private String hostname;
     private int port;
     private String userName;
+    private JFrame frame ;
     
     ObjectOutputStream forobj;
     ObjectInputStream getobj ;
@@ -42,7 +48,7 @@ public class Client {
 	        try {
 	            Socket socket = new Socket(hostname, port);
 	            System.out.println(socket.isConnected());
-	            // new ReadThread(socket, this).start();
+	            new ReadThread(socket, this).start();
 	            new WriteThread(socket, this).start();
 	            
 	            
@@ -97,6 +103,28 @@ public class Client {
             System.out.println("s0mething went wrong :" + e.getMessage());
         }
 
+    }
+    
+    void lauch_frame_for_afterLogin() {
+		System.out.println("Kachara code execution started !! " );
+  	   	frame = new JFrame("My First Swing Example");
+  	   	// Setting the width and height of frame
+  	   	frame.setSize(350, 200);
+  	   	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        JPanel panel = new JPanel();    
+        // adding panel to frame
+        frame.add(panel);
+        JLabel userLabel = new JLabel("Processing Your Credentails !!");
+        
+        userLabel.setBounds(10,20,80,25);
+        panel.add(userLabel);
+        frame.setVisible(true);
+	
+    }
+    
+    
+    void closeframe() {
+        frame.setVisible(false);
     }
 
    
