@@ -34,6 +34,8 @@ public class Client {
     private int port;
     private String userName;
     private JFrame frame ;
+    WriteThread write ;
+    ReadThread read;
     
     ObjectOutputStream forobj;
     ObjectInputStream getobj ;

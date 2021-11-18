@@ -1,1 +1,7 @@
 
+1) Server Side UI window resize issue 
+2) Shutdown on server End Code 
+3) Shutdown button add karna aahe 
+4) Cleint Side UI iuuse ( Race C0ndition )
+5) Client afterLogin screen 
+6) Cleint Login screen : integration 
